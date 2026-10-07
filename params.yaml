@@ -1,0 +1,52 @@
+# Parameters for the ML pipeline (tracked by DVC + logged to MLflow)
+target:
+  # 1 = student FAILS the subject (final grade G3 < 10). Prediction is made at the end of
+  # period 2 (G1, G2, attendance known) so there is still time for an intervention.
+  name: fail
+  pass_mark: 10
+
+split:
+  # Problem-appropriate split: stratified by target and GROUPED by student_id so the same
+  # student (who may be enrolled in both subjects) never appears in two splits (no leakage).
+  test_fraction: 0.2
+  val_fraction: 0.2
+  random_state: 42
+
+features:
+  numeric: [age, mother_education, father_education, travel_time, study_time, prior_failures,
+            family_relationship, free_time, going_out, weekday_alcohol, weekend_alcohol, health,
+            absences, attendance_pct, grade_p1, grade_p2, avg_internal_marks, grade_trend]
+  categorical: [subject_code, school, sex, address_type, family_size, parent_status, mother_job,
+                father_job, reason, guardian]
+  boolean: [school_support, family_support, paid_classes, extra_activities, attended_nursery,
+            wants_higher_education, internet_access, romantic]
+
+models:
+  logistic_regression:
+    C: 0.5
+    max_iter: 2000
+    class_weight: balanced
+  random_forest:
+    n_estimators: 400
+    max_depth: 8
+    min_samples_leaf: 3
+    class_weight: balanced
+  xgboost:
+    n_estimators: 300
+    max_depth: 3
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.8
+    reg_lambda: 1.0
+
+selection:
+  metric: val_f1          # champion = best validation F1 (ties -> val_roc_auc)
+  decision_threshold: 0.5
+
+monitoring:
+  psi_threshold: 0.2          # PSI > 0.2 (and KS p < 0.05 for numeric) = drift for a feature
+  min_rows: 30                # fewer rows than this -> drift checks skipped
+  drift_share_threshold: 0.3  # retrain if > 30% of features drift
+  key_features: [grade_p1, grade_p2, avg_internal_marks, attendance_pct, prior_failures]
+  f1_drop_threshold: 0.05     # retrain if F1 drops by > 0.05 vs. test F1 at training time
+  positive_rate_shift: 0.10   # retrain if predicted fail-rate moves > 10 percentage points

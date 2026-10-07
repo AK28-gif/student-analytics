@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 560" width="1180" height="560" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52514e"/>
+    </marker>
+    <style>
+      .t{font-size:15px;font-weight:700;fill:#0b0b0b}
+      .s{font-size:12px;fill:#52514e}
+      .h{font-size:14px;font-weight:700;fill:#52514e;letter-spacing:.5px}
+      .p1{fill:#eaf2fc;stroke:#2a78d6;stroke-width:1.6}
+      .p2{fill:#fdeee7;stroke:#eb6834;stroke-width:1.6}
+      .or{fill:#e5f6ef;stroke:#1baf7a;stroke-width:1.6}
+      .e{stroke:#52514e;stroke-width:1.6;fill:none;marker-end:url(#a)}
+      .ed{stroke:#52514e;stroke-width:1.4;fill:none;stroke-dasharray:5 4;marker-end:url(#a)}
+      .l{font-size:11px;fill:#52514e}
+    </style>
+  </defs>
+  <rect width="1180" height="560" fill="#ffffff"/>
+  <text x="590" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#0b0b0b">Student Performance &amp; Dropout-Risk System</text>
+
+  <!-- ===== PART 1 ===== -->
+  <text class="h" x="20" y="72">PART 1 · DATA PIPELINE</text>
+
+  <!-- Airflow bar -->
+  <rect class="or" x="170" y="86" width="840" height="40" rx="8"/>
+  <text class="t" x="590" y="111" text-anchor="middle">Apache Airflow - runs every step below on a daily schedule</text>
+
+  <!-- boxes: width 150, gap 32 -->
+  <rect class="p1" x="20"  y="150" width="150" height="74" rx="8"/>
+  <text class="t" x="95" y="180" text-anchor="middle">UCI Dataset</text>
+  <text class="s" x="95" y="200" text-anchor="middle">Maths + Portuguese</text>
+
+  <rect class="p1" x="190" y="150" width="150" height="74" rx="8"/>
+  <text class="t" x="265" y="180" text-anchor="middle">1. Ingest</text>
+  <text class="s" x="265" y="200" text-anchor="middle">Python + Pandas</text>
+
+  <rect class="p1" x="360" y="150" width="150" height="74" rx="8"/>
+  <text class="t" x="435" y="180" text-anchor="middle">2. Raw + Staging</text>
+  <text class="s" x="435" y="200" text-anchor="middle">copy of data as-is</text>
+
+  <rect class="p1" x="530" y="150" width="150" height="74" rx="8"/>
+  <text class="t" x="605" y="180" text-anchor="middle">3. Clean</text>
+  <text class="s" x="605" y="200" text-anchor="middle">validate, fix, dedupe</text>
+
+  <rect class="p1" x="700" y="150" width="150" height="74" rx="8"/>
+  <text class="t" x="775" y="180" text-anchor="middle">4. Warehouse</text>
+  <text class="s" x="775" y="200" text-anchor="middle">PostgreSQL tables</text>
+
+  <rect class="p1" x="870" y="150" width="140" height="74" rx="8"/>
+  <text class="t" x="940" y="180" text-anchor="middle">5. Marts</text>
+  <text class="s" x="940" y="200" text-anchor="middle">ready-to-use tables</text>
+
+  <rect class="p1" x="1030" y="150" width="130" height="74" rx="8"/>
+  <text class="t" x="1095" y="180" text-anchor="middle">Dashboard</text>
+  <text class="s" x="1095" y="200" text-anchor="middle">Streamlit</text>
+
+  <path class="e" d="M170 187 L188 187"/>
+  <path class="e" d="M340 187 L358 187"/>
+  <path class="e" d="M510 187 L528 187"/>
+  <path class="e" d="M680 187 L698 187"/>
+  <path class="e" d="M850 187 L868 187"/>
+  <path class="e" d="M1010 187 L1028 187"/>
+
+  <!-- rejected log -->
+  <rect x="530" y="250" width="150" height="50" rx="8" fill="#fff" stroke="#d03b3b" stroke-width="1.4"/>
+  <text class="t" x="605" y="272" text-anchor="middle" style="font-size:13px">Rejected records</text>
+  <text class="s" x="605" y="289" text-anchor="middle">error log</text>
+  <path class="ed" d="M605 224 L605 248"/>
+
+  <!-- ===== PART 2 ===== -->
+  <line x1="20" y1="330" x2="1160" y2="330" stroke="#e1e0d9"/>
+  <text class="h" x="20" y="362">PART 2 · MACHINE LEARNING (MLOps)</text>
+
+  <rect class="p2" x="20"  y="385" width="170" height="74" rx="8"/>
+  <text class="t" x="105" y="415" text-anchor="middle">Features</text>
+  <text class="s" x="105" y="435" text-anchor="middle">versioned with DVC</text>
+
+  <rect class="p2" x="220" y="385" width="190" height="74" rx="8"/>
+  <text class="t" x="315" y="415" text-anchor="middle">Train 3 models</text>
+  <text class="s" x="315" y="433" text-anchor="middle">Logistic Regression,</text>
+  <text class="s" x="315" y="449" text-anchor="middle">Random Forest, XGBoost</text>
+
+  <rect class="p2" x="440" y="385" width="170" height="74" rx="8"/>
+  <text class="t" x="525" y="415" text-anchor="middle">MLflow</text>
+  <text class="s" x="525" y="435" text-anchor="middle">track + pick best model</text>
+
+  <rect class="p2" x="640" y="385" width="190" height="74" rx="8"/>
+  <text class="t" x="735" y="415" text-anchor="middle">FastAPI in Docker</text>
+  <text class="s" x="735" y="435" text-anchor="middle">serves predictions</text>
+
+  <rect class="p2" x="860" y="385" width="170" height="74" rx="8"/>
+  <text class="t" x="945" y="415" text-anchor="middle">Monitoring</text>
+  <text class="s" x="945" y="435" text-anchor="middle">drift, accuracy, latency</text>
+
+  <path class="e" d="M190 422 L218 422"/>
+  <path class="e" d="M410 422 L438 422"/>
+  <path class="e" d="M610 422 L638 422"/>
+  <path class="e" d="M830 422 L858 422"/>
+
+  <!-- marts feed features -->
+  <path class="ed" d="M940 226 C940 320 105 300 105 383"/>
+  <rect x="402" y="296" width="196" height="18" fill="#ffffff"/>
+  <text class="l" x="500" y="309" text-anchor="middle">mart data becomes model features</text>
+
+  <!-- api to dashboard -->
+  <path class="ed" d="M735 385 C735 340 1095 300 1095 226"/>
+  <rect x="950" y="282" width="96" height="18" fill="#ffffff"/>
+  <text class="l" x="998" y="295" text-anchor="middle">risk predictions</text>
+
+  <!-- retrain loop -->
+  <path class="ed" d="M945 461 C945 520 315 520 315 461"/>
+  <rect x="430" y="503" width="320" height="18" fill="#ffffff"/>
+  <text class="l" x="590" y="516" text-anchor="middle">new data → retrain automatically (Airflow)</text>
+</svg>

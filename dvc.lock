@@ -1,0 +1,127 @@
+schema: '2.0'
+stages:
+  etl:
+    cmd: python -m src.pipeline
+    deps:
+    - path: sql/schema.sql
+      hash: md5
+      md5: 9e0cb3993b2a2623981d01756bc03858
+      size: 9674
+    - path: src/common
+      hash: md5
+      md5: 245a21c481bd7140031428c5b9ea703e.dir
+      size: 18048
+      nfiles: 10
+    - path: src/etl
+      hash: md5
+      md5: 16f10f4b327363a0eeb91d244f94e5ad.dir
+      size: 68102
+      nfiles: 12
+    - path: src/ingestion
+      hash: md5
+      md5: fdb6d3755310d8291b3125885c246958.dir
+      size: 20201
+      nfiles: 6
+    outs:
+    - path: data/processed/student_features.csv
+      hash: md5
+      md5: 7eb1cb8fb0552968bdc5d7a2beee751f
+      size: 267110
+  train:
+    cmd: python -m src.ml.train
+    deps:
+    - path: data/processed/student_features.csv
+      hash: md5
+      md5: 7eb1cb8fb0552968bdc5d7a2beee751f
+      size: 267110
+    - path: src/ml/features.py
+      hash: md5
+      md5: 907c697d1efebaaca230b0c861d36931
+      size: 1476
+    - path: src/ml/train.py
+      hash: md5
+      md5: a8eb00a8d1bcebe7d268188c6fa5d254
+      size: 10405
+    params:
+      params.yaml:
+        features:
+          numeric:
+          - age
+          - mother_education
+          - father_education
+          - travel_time
+          - study_time
+          - prior_failures
+          - family_relationship
+          - free_time
+          - going_out
+          - weekday_alcohol
+          - weekend_alcohol
+          - health
+          - absences
+          - attendance_pct
+          - grade_p1
+          - grade_p2
+          - avg_internal_marks
+          - grade_trend
+          categorical:
+          - subject_code
+          - school
+          - sex
+          - address_type
+          - family_size
+          - parent_status
+          - mother_job
+          - father_job
+          - reason
+          - guardian
+          boolean:
+          - school_support
+          - family_support
+          - paid_classes
+          - extra_activities
+          - attended_nursery
+          - wants_higher_education
+          - internet_access
+          - romantic
+        models:
+          logistic_regression:
+            C: 0.5
+            max_iter: 2000
+            class_weight: balanced
+          random_forest:
+            n_estimators: 400
+            max_depth: 8
+            min_samples_leaf: 3
+            class_weight: balanced
+          xgboost:
+            n_estimators: 300
+            max_depth: 3
+            learning_rate: 0.05
+            subsample: 0.9
+            colsample_bytree: 0.8
+            reg_lambda: 1.0
+        selection:
+          metric: val_f1
+          decision_threshold: 0.5
+        split:
+          test_fraction: 0.2
+          val_fraction: 0.2
+          random_state: 42
+        target:
+          name: fail
+          pass_mark: 10
+    outs:
+    - path: models/champion
+      hash: md5
+      md5: 9ff4c0002c3034007bd14aac00ae9a43.dir
+      size: 445771
+      nfiles: 4
+    - path: reports/metrics.json
+      hash: md5
+      md5: 66b5cf8cf6c64c7bb913cc408f641878
+      size: 674
+    - path: reports/training/model_comparison.csv
+      hash: md5
+      md5: 8c19f8585ea2906a069a007fc745c9b3
+      size: 641

@@ -1,0 +1,28 @@
+source scripts/env.sh && .venv/bin/python -m src.pipeline
+2026-10-07 14:15:24,486 | INFO | pipeline | Database schema ensured (student_app@localhost/student_db)
+2026-10-07 14:15:24,497 | INFO | pipeline | === Pipeline run run_20261007T084524Z started (cli) ===
+2026-10-07 14:15:24,498 | INFO | ingest | [run_20261007T084524Z] Ingesting UCI Student Performance (id 320) from https://archive.ics.uci.edu/static/public/320/student+performance.zip
+2026-10-07 14:15:26,383 | INFO | ingest | [run_20261007T084524Z] student-mat.csv: 395 rows extracted, 0 malformed lines
+2026-10-07 14:15:26,394 | INFO | ingest | [run_20261007T084524Z] student-por.csv: 649 rows extracted, 0 malformed lines
+2026-10-07 14:15:26,513 | INFO | staging | [run_20261007T084524Z] staged 395 rows from /Users/akotte/work/student-analytics/data/raw/run_20261007T084524Z/student-mat.csv
+2026-10-07 14:15:26,657 | INFO | staging | [run_20261007T084524Z] staged 649 rows from /Users/akotte/work/student-analytics/data/raw/run_20261007T084524Z/student-por.csv
+2026-10-07 14:15:27,058 | INFO | clean | [run_20261007T084524Z] clean layer: {'staged': 1044, 'students': 674, 'enrollments': 1044, 'rejected': 0, 'in_both_subjects': 370}
+2026-10-07 14:15:27,927 | INFO | analytics | [run_20261007T084524Z] analytics layer: {'dim_student': 674, 'fact_student_term': 3132, 'mart_student_subject': 1044, 'high_risk': 167}
+2026-10-07 14:15:27,934 | INFO | quality | [run_20261007T084524Z] DQ staging_not_empty                critical PASS (observed=1044.0, expected > 0 rows)
+2026-10-07 14:15:27,936 | INFO | quality | [run_20261007T084524Z] DQ staging_matches_ingested_rows    critical PASS (observed=0.0, expected staged rows = ingested rows)
+2026-10-07 14:15:27,938 | INFO | quality | [run_20261007T084524Z] DQ clean_retention_rate             critical PASS (observed=100.0, expected >= 95% of staged rows survive cleaning)
+2026-10-07 14:15:27,967 | INFO | quality | [run_20261007T084524Z] DQ student_id_unique                critical PASS (observed=0.0, expected 0 duplicates)
+2026-10-07 14:15:27,969 | INFO | quality | [run_20261007T084524Z] DQ student_id_format                critical PASS (observed=0.0, expected all ids match STU#####)
+2026-10-07 14:15:27,980 | INFO | quality | [run_20261007T084524Z] DQ grades_in_range                  critical PASS (observed=0.0, expected 0 grades outside 0-20)
+2026-10-07 14:15:27,993 | INFO | quality | [run_20261007T084524Z] DQ attendance_in_range              critical PASS (observed=0.0, expected 0 values outside 0-100)
+2026-10-07 14:15:27,994 | INFO | quality | [run_20261007T084524Z] DQ fact_term_grain                  critical PASS (observed=0.0, expected 3 term rows per enrolment)
+2026-10-07 14:15:27,999 | INFO | quality | [run_20261007T084524Z] DQ mart_matches_enrollment          critical PASS (observed=0.0, expected 1 mart row per enrolment)
+2026-10-07 14:15:28,019 | INFO | quality | [run_20261007T084524Z] DQ no_orphan_facts                  critical PASS (observed=0.0, expected every fact row has a student)
+2026-10-07 14:15:28,022 | INFO | quality | [run_20261007T084524Z] DQ rejected_share_pct               warning  PASS (observed=0.0, expected < 5% of rows rejected)
+2026-10-07 14:15:28,023 | INFO | quality | [run_20261007T084524Z] DQ students_in_both_subjects        warning  PASS (observed=370.0, expected 300-400 (UCI documents 382))
+2026-10-07 14:15:28,025 | INFO | quality | [run_20261007T084524Z] DQ final_grade_zero_share_pct       warning  PASS (observed=5.076628352490421, expected < 10% (G3=0 usually means the student missed the final exam))
+2026-10-07 14:15:28,026 | INFO | quality | [run_20261007T084524Z] DQ imputed_attendance_share_pct     warning  PASS (observed=0.0, expected < 10% of attendance values imputed)
+2026-10-07 14:15:28,027 | INFO | pipeline | === Pipeline run run_20261007T084524Z finished: SUCCESS 1044 enrolments, 0 rejected ===
+2026-10-07 14:15:28,028 | INFO | pipeline |   ingestion  ('UCI Student Performance (id 320) - student-mat.csv', 'SUCCESS', 395, 0)
+2026-10-07 14:15:28,028 | INFO | pipeline |   ingestion  ('UCI Student Performance (id 320) - student-por.csv', 'SUCCESS', 649, 0)
+2026-10-07 14:15:28,029 | INFO | pipeline |   dq         (14, 14)

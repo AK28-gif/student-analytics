@@ -1,0 +1,36 @@
+# DVC pipeline: versions the analytical dataset, the trained model and its metrics.
+#   dvc repro          -> re-runs only the stages whose inputs changed
+#   dvc metrics show   -> compare model metrics across git commits
+#   dvc push           -> store data/model versions in the DVC remote
+stages:
+  etl:
+    cmd: python -m src.pipeline
+    deps:
+      - src/ingestion
+      - src/etl
+      - src/common
+      - sql/schema.sql
+    outs:
+      - data/processed/student_features.csv
+  train:
+    cmd: python -m src.ml.train
+    deps:
+      - data/processed/student_features.csv
+      - src/ml/train.py
+      - src/ml/features.py
+    params:
+      - target
+      - split
+      - features
+      - models
+      - selection
+    outs:
+      - models/champion
+    metrics:
+      - reports/metrics.json:
+          cache: false
+    plots:
+      - reports/training/model_comparison.csv:
+          cache: false
+          x: model
+          y: test_f1

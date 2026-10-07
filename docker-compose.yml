@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+      args:
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.org/simple}
+    image: student-risk-api:latest
+    container_name: student-risk-api
+    ports:
+      - "8000:8000"
+    volumes:
+      # prediction log is shared with the host so src/ml/monitor.py can analyse it
+      - ./logs/api:/app/logs/api
+    restart: unless-stopped

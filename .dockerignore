@@ -1,0 +1,14 @@
+venv
+.venv
+.git
+.dvc/cache
+data
+logs
+mlruns
+mlartifacts
+mlflow.db
+airflow_home
+reports
+docs
+**/__pycache__
+.env

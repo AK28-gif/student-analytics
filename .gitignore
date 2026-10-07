@@ -1,0 +1,21 @@
+# environments & secrets
+venv/
+.venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# runtime state
+logs/
+airflow_home/
+airflow.db
+airflow.cfg
+mlflow.db
+mlruns/
+mlartifacts/
+data/raw/
+reports/monitoring/
+dvc_storage/
+
+# DVC-managed outputs are listed in their own .gitignore files by DVC

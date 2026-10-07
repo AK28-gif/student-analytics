@@ -1,0 +1,12 @@
+ student_id | subject_code | grade_p1 | grade_p2 | final_grade | attendance_pct | risk_score | risk_level 
+------------+--------------+----------+----------+-------------+----------------+------------+------------
+ STU00001   | MAT          |        7 |        4 |           0 |         100.00 |          7 | High
+ STU00014   | MAT          |        6 |        0 |           0 |         100.00 |          5 | High
+ STU00020   | MAT          |        6 |        5 |           0 |         100.00 |          5 | High
+ STU00029   | MAT          |        7 |        7 |           7 |          98.33 |          5 | High
+ STU00030   | MAT          |        8 |        6 |           5 |          98.33 |          6 | High
+ STU00033   | POR          |        8 |        7 |           7 |          88.33 |          7 | High
+ STU00047   | MAT          |        6 |        7 |           8 |          87.50 |          5 | High
+ STU00048   | POR          |        9 |       10 |          10 |          99.17 |          6 | High
+(8 rows)
+
