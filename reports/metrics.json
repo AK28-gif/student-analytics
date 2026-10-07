@@ -1,6 +1,6 @@
 {
   "champion": "xgboost",
-  "model_version": 5,
+  "model_version": 6,
   "logistic_regression": {
     "val_f1": 0.7692,
     "val_roc_auc": 0.9828,
